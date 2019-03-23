@@ -40,7 +40,7 @@ router.get('/api/users/:nombre?', function(req, res, next) {
   });
 
   // Search in the Data base
-  var query = (`name == "${req.params.nombre}"`);
+  var query = (`name == "${req.params.nombre}" OR apellido == "${req.params.nombre}"`);
   user_result = realm1.objects('Person').filtered(query);
 
   if (user_result.length > 0 ){
