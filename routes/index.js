@@ -21,6 +21,7 @@ router.get('/', function(req, res, next) {
 
 /* GET ALL USERS. */
 router.get('/api/users', function(req, res, next) {
+  // Connects with Realm Data Base Table Person
   Realm.open({schema: [PersonSchema]})
   .then(realm => {
     const realm1 = this.realm; //vincula es el objeto con la variable real
@@ -28,6 +29,25 @@ router.get('/api/users', function(req, res, next) {
 
   const personas = realm1.objects('Person');
   res.json(personas);
+});
+
+/* GET one USER by name. */
+router.get('/api/users/:nombre?', function(req, res, next) {
+  // Connects with Realm Data Base Table Person
+  Realm.open({schema: [PersonSchema]})
+  .then(realm => {
+    const realm1 = this.realm; //vincula es el objeto con la variable real
+  });
+
+  // Search in the Data base
+  var query = (`name == "${req.params.nombre}"`);
+  user_result = realm1.objects('Person').filtered(query);
+
+  if (user_result.length > 0 ){
+    res.json(user_result);
+  }else{
+    res.status(404).send(`No person found with user name ${req.params.nombre}`);
+  }
 });
 
 /* POST new USERS. */
