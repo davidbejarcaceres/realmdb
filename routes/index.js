@@ -73,16 +73,9 @@ router.post('/api/users',function(req, res){
 });
 
 
-
-
-
-
-
 /* GET JSON API test. */
 router.get('/api/test', function(req, res, next) {
-
-  console.log("API de prueba iniciando... \n");
-
+  //Crea un esquema para Realm
   Realm.open({schema: [PersonSchema]})
   .then(realm => {
     // Create Realm objects and write to local storage
@@ -99,14 +92,9 @@ router.get('/api/test', function(req, res, next) {
     //   });
     // });
 
-    console.log("\nFirst user created...\n");
-    console.log("...");
-
   // Query Realm for all cars with a high mileage
   const personas = realm1.objects('Person');
   res.json(personas); //Response woth all the persons in the DB
 });
-
-
 
 module.exports = router;
